@@ -44,7 +44,7 @@ function main() {
         for (let i in srcItemList) {
             let srcItem = srcItemList[i];
             let srcDataList = Parser.data(srcItem).from('<td>').to('</td>').iterate();
-            let route = srcDataList[0].replace(/<a href=".*\/">/, '').replace('</a>', '');
+            let route = srcDataList[0].replace(/<a href=\"(.*?)\".*?>/, '').replace('</a>', '');
             let status = srcDataList[1] ? Parser.data(srcDataList[1]).from('<span class="colTrouble">').to('</span>').build() : null;
             let memo = srcDataList[2];
             if ('平常運転' != status) {
@@ -97,7 +97,7 @@ function main() {
  * 運行情報を取得する
  */
 function getOperationInfo() {
-    let url = `https://transit.yahoo.co.jp/traininfo/area/${USER_REGION}/`;
+    let url = `https://transit.yahoo.co.jp/diainfo/area/${USER_REGION}/`;
     let options = {
         'method': 'get',
     };
